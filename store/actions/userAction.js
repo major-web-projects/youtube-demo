@@ -25,7 +25,7 @@ const list = () => (dispatch) => {
       return resolve();
     } catch (error) {
       const errorMsg = error.response.data.message || error.message;
-      console.log(errorMsg);
+
       return reject(errorMsg);
     }
   });
@@ -40,7 +40,7 @@ const read = (userId) => (dispatch) => {
       return resolve();
     } catch (error) {
       const errorMsg = error.response.data.message || error.message;
-      console.log(errorMsg);
+
       return reject(errorMsg);
     }
   });
@@ -102,7 +102,7 @@ const userBySlug = (slug) => (dispatch) => {
       return resolve();
     } catch (error) {
       const errorMsg = error.response.data.message || error.message;
-      console.log(errorMsg);
+
       return reject(errorMsg);
     }
   });

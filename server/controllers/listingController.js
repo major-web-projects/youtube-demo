@@ -98,7 +98,6 @@ const list = catchAsyncErrors(async (req, res, next) => {
   //   queryObj.status = "active";
   // }
 
-  console.log(queryObj);
   const paginator = await ListingModel.paginate(queryObj, options);
   const listings = paginator.listings;
   delete paginator.listings;
@@ -127,8 +126,6 @@ const create = catchAsyncErrors(async (req, res, next) => {
     price,
     category,
   } = req.body;
-
-  console.log(req.body);
 
   let listing = new ListingModel({
     channelId,
@@ -191,14 +188,12 @@ const update = catchAsyncErrors(async (req, res, next) => {
     subs,
   };
 
-  console.log(subs);
-
   let listing = await ListingModel.findByIdAndUpdate(listingId, listingData, {
     new: true,
   });
 
   let image = await imageHelper.resizeSingleImage(req);
-  console.log(image);
+
   if (listing.image && listing.image.url) {
     let oldAvatar = process.cwd() + "/public" + listing.image.url;
     let defaultPic =
@@ -207,9 +202,7 @@ const update = catchAsyncErrors(async (req, res, next) => {
 
     // Display uploaded image for user validation'
     if (oldAvatar !== defaultPic) {
-      await fs.unlink(oldAvatar).catch((err) => {
-        console.log("File not found");
-      });
+      await fs.unlink(oldAvatar).catch((err) => {});
     }
   }
 
@@ -235,7 +228,7 @@ const upload = catchAsyncErrors(async (req, res, next) => {
   const userId = req.auth._id;
   const listingId = req.params.listingId;
   const images = await imageHelper.resizeMultipleImages(req);
-  console.log(images);
+
   let listing = await ListingModel.findOneAndUpdate(
     { _id: listingId },
     { $push: { images: images } },
@@ -258,7 +251,7 @@ const uploadCoverImage = catchAsyncErrors(async (req, res, next) => {
 const removeImage = catchAsyncErrors(async (req, res, next) => {
   const listingId = req.params.listingId;
   const image = req.image;
-  console.log("Listing", req.image);
+
   let listing = await ListingModel.findOneAndUpdate(
     { _id: listingId },
     { $pull: { images: image._id } },
@@ -369,15 +362,13 @@ const searchYouTubeChannel = catchAsyncErrors(async (req, res, next) => {
   if (channelSearchType === "id") {
     searchData.id = keyword;
   }
-  console.log(searchData);
+
   service.channels.list(searchData, function (err, response) {
     if (err) {
-      console.log("The API returned an error: " + err);
       return;
     }
     let channels = response.data.items;
     if (channels.length == 0) {
-      console.log("No channel found.");
     } else {
       channels = channels.map((item) => ({
         channelId: item.id,

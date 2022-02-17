@@ -32,7 +32,10 @@ const UserSchema = new Schema(
       type: String,
       trim: true,
     },
-
+    phone: {
+      type: String,
+      trim: true,
+    },
     avatar: {
       url: {
         type: String,
@@ -42,7 +45,10 @@ const UserSchema = new Schema(
         type: String,
         default: "avatar.jpg",
       },
-      full_url: String,
+      full_url: {
+        type: String,
+        default: "/images/defaults/avatar.jpg",
+      },
       storageType: {
         type: String,
         default: "FileStorage",

@@ -8,7 +8,6 @@ import { catchAsyncErrors } from "./errorMiddleware.js";
 const isAuth = catchAsyncErrors(async (req, res, next) => {
   // get token
   const token = req.cookies.token;
-  console.log(token);
 
   if (!token) {
     return next(new ErrorHelper("Please login to continue", 401));

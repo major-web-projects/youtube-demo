@@ -96,7 +96,7 @@ function ListingCoverImage() {
     onDrop: (acceptedFiles) => {
       const formData = new FormData();
       formData.append("name", "major");
-      console.log(acceptedFiles);
+
       acceptedFiles &&
         acceptedFiles.map((file) => {
           formData.append("image", file);

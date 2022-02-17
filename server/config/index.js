@@ -10,9 +10,7 @@ const mongodbConnect = async (mongoURI) => {
       useNewUrlParser: true,
       useUnifiedTopology: true,
     });
-    console.log("Mongodb connected successfully");
   } catch (error) {
-    console.log(`Mongodb failed to connect: ${error.message}`);
     process.exit(1);
   }
 };

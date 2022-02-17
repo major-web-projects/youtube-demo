@@ -80,7 +80,6 @@ export const globalErrors = (err, req, res, next) => {
   }
 
   if (config.dev) {
-    console.log(err);
     return res.status(err.statusCode).json({
       status: err.status,
       error: err,
@@ -91,7 +90,6 @@ export const globalErrors = (err, req, res, next) => {
 
   // not operational that we trust
   if (!err.isOperational) {
-    console.log("ERROR!", err);
     return res.status(500).json({
       status: "error",
       message: "Something went wrong",

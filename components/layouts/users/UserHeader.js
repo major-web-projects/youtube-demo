@@ -32,12 +32,10 @@ const UserHeader = ({ user = {} }) => {
             <h3 className="h5 mb-0">{user?.name || "user name"}</h3>
             <ul className="list-unstyled fs-sm mb-0">
               <li className="d-flex text-nav text-break fs-sm">
-                <i className="fas fa-envelope opacity-60 mt-1 me-2" />
                 <span>{user?.email || "Not specified"}</span>
               </li>
               <li className="d-flex text-nav text-break fs-sm">
-                <i className="fas fa-phone opacity-60 mt-1 me-2" />
-                <span>{user?.contacts?.phone || "Not specified"}</span>
+                <span>{user?.phone || "Not specified"}</span>
               </li>
             </ul>
           </div>

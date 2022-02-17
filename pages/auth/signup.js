@@ -1,19 +1,24 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import Link from "next/link";
 import { toast } from "react-toastify";
 import { signupAction } from "../../store/actions/authAction";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { useRouter } from "next/router";
 
 const Signup = () => {
-  const [name, setName] = useState();
-  const [email, setEmail] = useState();
-  const [password, setPassword] = useState();
-  const [passwordConfirm, setPasswordConfirm] = useState();
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [passwordConfirm, setPasswordConfirm] = useState("");
   const [isShowPassword, setIsShowPassword] = useState(false);
   const [agreeToTerms, setAgreeToTerms] = useState(false);
 
+  const { user } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
+  const router = useRouter();
+  const redirect = router.query.redirect;
+
   const toggleShowPassword = (e) => {
     e.preventDefault();
     console.log("click");
@@ -31,9 +36,24 @@ const Signup = () => {
     };
 
     dispatch(signupAction(formData))
-      .then(() => toast.success("registered successfully"))
+      .then(() => {
+        toast.success("Successfully registered");
+        if (redirect) {
+          return router.push(redirect);
+        }
+        return router.push("/dashboard");
+      })
       .catch((error) => toast.error(error));
   };
+
+  useEffect(() => {
+    if (user) {
+      if (redirect) {
+        return router.push(redirect);
+      }
+      return router.push("/dashboard");
+    }
+  }, [user]);
   return (
     <div className="container-fluid  mt-5 pt-5 p-0">
       <div className="row align-items-center justify-content-center min-vh-100 gx-0">

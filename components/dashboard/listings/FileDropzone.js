@@ -120,7 +120,6 @@ function FileDropzone() {
   ));
 
   const submitHandler = (e) => {
-    console.log(files);
     e.preventDefault();
     const listingData = new FormData();
     listingData.append("name", "major");
@@ -128,7 +127,7 @@ function FileDropzone() {
       files.map((file) => {
         listingData.append("images", file);
       });
-    console.log(listingData);
+
     dispatch(
       listingAction.upload({ listingData, listingId: props.listing._id })
     );

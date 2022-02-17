@@ -99,7 +99,6 @@ const remove = catchAsyncErrors(async (req, res) => {
 
 // multer upload
 const uploadAvatar = async (req, res) => {
-  console.log(req.body);
   let user = req.auth;
   // 'profile_pic' is the name of our file input field in the HTML form
   try {
@@ -107,9 +106,7 @@ const uploadAvatar = async (req, res) => {
     user.avatar = "/uploads/" + req.file.filename;
     user = await user.save();
     res.json({ status: "ok", user });
-  } catch (error) {
-    console.log(error);
-  }
+  } catch (error) {}
 };
 
 export default {

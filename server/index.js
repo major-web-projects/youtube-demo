@@ -32,6 +32,4 @@ app
       );
     });
   })
-  .catch((err) => {
-    console.log("Error", err);
-  });
+  .catch((err) => {});

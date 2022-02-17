@@ -24,10 +24,10 @@ const ListingSidebar = ({ categories = [], showFilters, setShowFilters }) => {
 
   const onChange = (id = null) => {
     let selected = [...category];
-    console.log(id);
+
     // instead of using indexOf, we can use findIndex to look through array of objects
     let find = selected.findIndex((item) => item === id);
-    console.log(find);
+
     if (find > -1) {
       selected.splice(find, 1);
     } else {

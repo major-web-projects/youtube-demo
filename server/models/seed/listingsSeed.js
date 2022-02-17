@@ -58,6 +58,5 @@ Promise.all(
     await Listing.create(item).catch((err) => console.log(err.message));
   })
 ).then(() => {
-  console.log("Finished");
   process.exit(1);
 });

@@ -39,7 +39,6 @@ const ListingReviewModal = (props) => {
                 rating={ratings}
                 starRatedColor="red"
                 changeRating={(value, name) => {
-                  console.log(value, name);
                   setRatings(value);
                 }}
                 numberOfStars={5}

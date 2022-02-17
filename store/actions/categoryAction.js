@@ -25,7 +25,7 @@ const list = () => (dispatch) => {
       return resolve();
     } catch (error) {
       const errorMsg = error.response.data.message || error.message;
-      console.log(errorMsg);
+
       return reject(errorMsg);
     }
   });
@@ -40,7 +40,7 @@ const read = (categoryId) => (dispatch) => {
       return resolve();
     } catch (error) {
       const errorMsg = error.response.data.message || error.message;
-      console.log(errorMsg);
+
       return reject(errorMsg);
     }
   });
@@ -55,7 +55,7 @@ const categoryBySlug = (slug) => (dispatch) => {
       return resolve();
     } catch (error) {
       const errorMsg = error.response.data.message || error.message;
-      console.log(errorMsg);
+
       return reject(errorMsg);
     }
   });

@@ -29,7 +29,6 @@ const CategoryPage = () => {
     dispatch(listingAction.list({ keyword, category, province, city }));
 
   const onPageChanged = (data) => {
-    console.log(data);
     dispatch(listingAction.list({ page: data.currentPage }));
   };
 

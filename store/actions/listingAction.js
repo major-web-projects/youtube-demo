@@ -52,7 +52,7 @@ const search = () => (dispatch) => {
       return resolve();
     } catch (error) {
       const errorMsg = error.response.data.message || error.message;
-      console.log(errorMsg);
+
       return reject(errorMsg);
     }
   });
@@ -70,7 +70,7 @@ const searchChannel = (formData) => (dispatch) => {
       return resolve();
     } catch (error) {
       const errorMsg = error.response.data.message || error.message;
-      console.log(errorMsg);
+
       return reject(errorMsg);
     }
   });
@@ -80,7 +80,7 @@ const list = (query) => (dispatch) => {
   dispatch(request());
 
   const stringified = qs.stringify(cleanObj(query), { skipNulls: true });
-  console.log(stringified);
+
   return new Promise(async (resolve, reject) => {
     try {
       const { data } = await axios.get(`/api/listings?${stringified}`);
@@ -88,7 +88,7 @@ const list = (query) => (dispatch) => {
       return resolve();
     } catch (error) {
       const errorMsg = error.response.data.message || error.message;
-      console.log(errorMsg);
+
       return reject(errorMsg);
     }
   });
@@ -103,7 +103,7 @@ const related = (listingId) => (dispatch) => {
       return resolve();
     } catch (error) {
       const errorMsg = error.response.data.message || error.message;
-      console.log(errorMsg);
+
       return reject(errorMsg);
     }
   });
@@ -118,7 +118,7 @@ const read = (listingId) => (dispatch) => {
       return resolve();
     } catch (error) {
       const errorMsg = error.response.data.message || error.message;
-      console.log(errorMsg);
+
       return reject(errorMsg);
     }
   });
@@ -133,7 +133,7 @@ const listingBySlug = (slug) => (dispatch) => {
       return resolve();
     } catch (error) {
       const errorMsg = error.response.data.message || error.message;
-      console.log(errorMsg);
+
       return reject(errorMsg);
     }
   });
@@ -253,7 +253,7 @@ const currentUser = (query) => (dispatch) => {
   dispatch(request());
 
   const stringified = qs.stringify(cleanObj(query), { skipNulls: true });
-  console.log(stringified);
+
   return new Promise(async (resolve, reject) => {
     try {
       const { data } = await axios.get(
@@ -263,7 +263,7 @@ const currentUser = (query) => (dispatch) => {
       return resolve();
     } catch (error) {
       const errorMsg = error.response.data.message || error.message;
-      console.log(errorMsg);
+
       return reject(errorMsg);
     }
   });

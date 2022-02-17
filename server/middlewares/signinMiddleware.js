@@ -34,7 +34,6 @@ const userLogins = async (req, res, next) => {
     }
   );
 
-  console.log(userlogins);
   return next();
 };
 

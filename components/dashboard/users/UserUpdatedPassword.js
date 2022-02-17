@@ -17,7 +17,7 @@ const UserUpdatedPassword = () => {
   const dispatch = useDispatch();
   const toggleShowPassword = (e) => {
     e.preventDefault();
-    console.log("click");
+
     setIsShowPassword(!isShowPassword);
   };
 

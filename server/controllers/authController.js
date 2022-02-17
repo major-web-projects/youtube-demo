@@ -22,20 +22,16 @@ const currentUser = catchAsyncErrors(async (req, res, next) => {
 });
 
 const signup = catchAsyncErrors(async (req, res, next) => {
-  const {
-    name,
-    email,
-    phone,
-    usertype,
-    password,
-    agreeToTerms,
-    passwordConfirm,
-  } = req.body;
+  const { name, email, password, agreeToTerms, passwordConfirm } = req.body;
   const ipAddress =
     (req.headers["x-forwarded-for"] || "").split(",").pop().trim() ||
     req.connection.remoteAddress ||
     req.socket.remoteAddress ||
     req.connection.socket.remoteAddress;
+
+  if (!name || !email || !password) {
+    return next(new ErrorHelper("Please provide all the values", 404));
+  }
 
   if (!agreeToTerms) {
     return next(
@@ -50,9 +46,9 @@ const signup = catchAsyncErrors(async (req, res, next) => {
       new ErrorHelper("Password and confirmation password do not match", 404)
     );
   }
-  console.log(req.body);
+
   let user = await UserModel.findOne({ $or: [{ name }, { email }] });
-  console.log(user);
+
   if (user) {
     return next(new ErrorHelper("Email or username already taken", 404));
   }
@@ -60,16 +56,28 @@ const signup = catchAsyncErrors(async (req, res, next) => {
   user = await UserModel.create({
     name,
     email,
-    usertype,
-    contacts: {
-      phone,
-    },
     password,
     passwordConfirm,
     meta: { ipAddress: ipAddress, device: req.headers["user-agent"] },
   });
 
-  return res.json({ status: "success" });
+  user.password = undefined;
+  const token = jwt.sign(
+    {
+      id: user._id,
+    },
+    config.jwtSecret,
+    { expiresIn: config.jwtExpiresIn }
+  );
+  const cookieOptions = {
+    expires:
+      new Date(Date.now + config.jwtCookieExpiresIn) * 24 * 60 * 60 * 1000,
+    httpOnly: true,
+    // secure: true,
+  };
+  req.auth = user;
+  res.cookie("token", token, cookieOptions);
+  return res.json({ status: "success", user });
 });
 
 const signin = catchAsyncErrors(async (req, res, next) => {
@@ -298,7 +306,7 @@ const resizeAvatar = catchAsyncErrors(async (req, res, next) => {
   if (!req.file) {
     return next();
   }
-  console.log(req.file);
+
   req.file.filename = `users_${req.auth._id}_${Date.now()}.jpeg`;
   req.file.url = "/images/uploads/users/" + req.file.filename;
   req.file.imageFullUrl = new URL(

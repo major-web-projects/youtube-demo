@@ -3,7 +3,6 @@ import { catchAsyncErrors } from "../middlewares/errorMiddleware.js";
 import UserSignModel from "../models/UserSignModel.js";
 
 const create = catchAsyncErrors(async (req, res, next) => {
-  console.log(req.body);
   let user = await UserSignModel.create(req.body);
   return res.json({ status: "success", user });
 });
