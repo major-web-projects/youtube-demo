@@ -28,9 +28,9 @@ const limiter = rateLimit({
 // app.use("/api", helmet());
 
 // app.use("/api", limiter);
-// if (config.dev) {
-//   app.use(morgan("dev"));
-// }
+if (config.dev) {
+  app.use(morgan("dev"));
+}
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());

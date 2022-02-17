@@ -21,7 +21,7 @@ const Signup = () => {
 
   const toggleShowPassword = (e) => {
     e.preventDefault();
-    console.log("click");
+
     setIsShowPassword(!isShowPassword);
   };
 

@@ -24,7 +24,7 @@ const generateUsers = async () => {
   }
 
   let status = ["active", "pending", "expired", "archived"];
-  const listings = [...Array(1000).keys()].map(() => {
+  const listings = [...Array(100).keys()].map(() => {
     let category = categories[Math.floor(Math.random() * categories.length)];
 
     return {
@@ -38,7 +38,7 @@ const generateUsers = async () => {
       etag: faker.random.uuid(),
       publishedAt: faker.date.past(2),
       thumbnails: {
-        medium: { url: faker.image.imageUrl() },
+        medium: { url: "/images/defaults/missing_listing.png" },
       },
       country: "US",
       viewCount: Math.floor(Math.random() * 10000),
