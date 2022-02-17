@@ -1,0 +1,7 @@
+{
+  "verbose": true,
+  "ignore": ["node_modules", ".next", "server/node_modules"],
+  "watch": ["server", "store"],
+  "exec": "node server/index.js",
+  "ext": "js json"
+}
